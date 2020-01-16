@@ -1,8 +1,9 @@
 from discord.ext import commands
 import os
 import traceback
+import random
 
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot('$')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 
@@ -14,8 +15,10 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
-
+async def split(ctx, num: int, *args):
+    words = list(*args)
+    namelist = random.sample(words, len(words))
+    result = [namelist[i::num] for i in range(num)]
+    await ctx.send(result)
 
 bot.run(token)

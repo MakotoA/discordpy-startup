@@ -15,10 +15,18 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def split(ctx, num: int, *args):
-    words = list(*args)
-    namelist = random.sample(words, len(words))
+async def split(ctx, num: int, args):
+    sp = args.split(" ")
+    filtered = filter(lambda str: str != ' ', sp)
+    ls = list(filtered)
+    namelist = random.sample(ls, len(ls))
     result = [namelist[i::num] for i in range(num)]
     await ctx.send(result)
+
+
+@bot.command()
+async def bear(ctx):
+    await ctx.send(":bear:")
+
 
 bot.run(token)
